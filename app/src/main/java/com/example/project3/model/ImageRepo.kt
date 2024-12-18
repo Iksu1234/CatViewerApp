@@ -1,11 +1,13 @@
 package com.example.project3.model
 
-import kotlinx.coroutines.delay
+import retrofit2.http.GET
+
 
 class ImageRepo {
-    suspend fun fetchImageData() : ImageData{
-        // mock api
-        delay(2000)
-        return ImageData("John","Doe")
+
+    interface ImageApiService {
+        @GET("search")
+        suspend fun getImage(): List<ImageData>
     }
+
 }

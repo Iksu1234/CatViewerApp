@@ -10,22 +10,5 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
 
-    val imageRepo : ImageRepo = ImageRepo()
 
-    private val _imageData = MutableLiveData<ImageData>()
-    val imageData: LiveData<ImageData> = _imageData
-
-    private val _isLoading = MutableLiveData<Boolean>(false)
-    val isLoading : LiveData<Boolean> = _isLoading
-
-    fun getImageData() {
-        _isLoading.postValue(true)
-        viewModelScope.launch {
-            val imageResult = imageRepo.fetchImageData()
-            _imageData.postValue(imageResult)
-            _isLoading.postValue(false)
-
-        }
-
-    }
 }

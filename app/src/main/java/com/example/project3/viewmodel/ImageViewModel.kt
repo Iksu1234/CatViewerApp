@@ -7,8 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.project3.model.ImageData
 import com.example.project3.model.ImageRepo
 import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import com.example.project3.model.RetrofitInstance
 
-class ImageViewModel : ViewModel() {
+
+class ImageViewModel : ViewModel()  {
 
     val imageRepo : ImageRepo = ImageRepo()
 
@@ -21,11 +24,16 @@ class ImageViewModel : ViewModel() {
     fun getImageData() {
         _isLoading.postValue(true)
         viewModelScope.launch {
-            val imageResult = imageRepo.fetchImageData()
-            _imageData.postValue(imageResult)
-            _isLoading.postValue(false)
-
+            try {
+                val response = RetrofitInstance.api.getImage()
+                _imageData.postValue(response[0])
+                _isLoading.postValue(false)
+            }catch (e: Exception) {
+            // Print the exception stack trace if an error occurs during the network call.
+            e.printStackTrace()
+        }
         }
 
     }
+
 }
