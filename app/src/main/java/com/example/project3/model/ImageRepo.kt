@@ -8,6 +8,10 @@ class ImageRepo {
     interface ImageApiService {
         @GET("search")
         suspend fun getImage(): List<ImageData>
+
+        @GET("search?limit=10")
+        suspend fun getManyImage(): List<ImageData>
+
     }
 
 }
